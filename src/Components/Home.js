@@ -1,6 +1,8 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
+import HomeCard from './HomeCard';
 
 const Home = (props) => {
+
 
     const [input, setInput] = useState({
         destName: "",
@@ -18,21 +20,49 @@ const Home = (props) => {
         })
     }
 
+    const [resList, setResList] = useState([]);
+
+    useEffect(() => {
+        fetch('https://restcountries.com/v2/name/' + input.destName)
+        .then(res => res.json())
+        .then(data => setResList(data))
+    }, [input]);
+
+    function handleClick(){
+        
+    }
+
     let empty = 1;
     let emptyStyle = "mx-auto my-auto text-center";
     let darn = "bg-red-900"
 
     return (
-        <div className="flex mx-auto bg-white max-w-3xl mt-10 h-96 border-2 border-gray-100 rounded-xl shadow-md">
+        <div className="flex mx-auto bg-white max-w-5xl mt-10 min-h-96 border-2 border-gray-100 rounded-xl shadow-md">
             <div className="white">
                 <div className="flex px-10 py-5">
-                    <input className="mx-2" type="text" placeholder="Mau ke mana?" onChange={handleChange} name="destName" value={input.destName}/>
-                    <input className="mx-2" type="date" placeholder="kapan nih?" onChange={handleChange} name="destDate" value={input.destDate}/>
+                    <div className="flex">
+                        <label className="mx-2 mr-0 p-2 bg-green-300 rounded-l-md" htmlFor="i">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </label>
+                        <input className="mx-2 ml-0 p-2 bg-gray-100 rounded-r-md focus:outline-none text-gray-400 focus:text-black focus:bg-gray-50" type="text" placeholder="Mau ke mana?" onChange={handleChange} name="destName" value={input.destName}/>
+                    </div>
+                    <div className="flex">
+                        <label className="mx-2 mr-0 p-2 bg-green-300 rounded-l-md" htmlFor="i">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </label>
+                        <input className="mx-2 ml-0 p-2 bg-gray-100 rounded-r-md text-gray-400 focus:text-black focus:outline-none appearance-none focus:bg-gray-50" type="date" placeholder="kapan nih?" onChange={handleChange} name="destDate" value={input.destDate}/>
+                    </div>
                 </div>
-                <div>
-                <button onClick={()=>{
-                    props.onAdd(input.destName, input.destDate);
-                }}>submit</button>
+                <div className="mx-12">
+                    {input.destName === "" && <p>hi</p>}
+                    {input.destName.length > 0 && resList.length > 0 && resList.map((index, key)=>{
+                        return <HomeCard name={index.name} flag={index.flags[0]}/>
+                    })}
                 </div>
             </div>
             <div className={empty? emptyStyle : darn}>

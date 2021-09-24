@@ -9,7 +9,7 @@ const Navbar = (props) => {
                 <p>{props.name}</p>
             </div>
             <div className="flex px-3 py-5">
-                <p>something here</p>
+                <p>✈️</p>
             </div>
             <div className="flex px-3 py-5">
                 <p>{props.date}</p>
