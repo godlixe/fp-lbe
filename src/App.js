@@ -12,9 +12,13 @@ function App() {
   });
 
   function handleAdd(e, x){
-    console.log("hi " + e + ", " + x)
-    input.destName = e;
-    input.destDate = x;
+    setInput(prev => {
+      return{
+          ...prev,
+          destName : e,
+          destDate : x
+      }
+  })
   }
   return (
     <div>
