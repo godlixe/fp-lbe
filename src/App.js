@@ -12,19 +12,15 @@ function App() {
   });
 
   function handleAdd(e, x){
-    setInput(prev => {
-      return{
-          ...prev,
-          destName : e,
-          destDate : x
-      }
-  })
+    console.log(e)
   }
   return (
     <Router>
       <div>
         <Navbar name={input.destName} date={input.destDate}/>
-        <Home onAdd={handleAdd}/>
+        <Route path="/">
+          <Home onAdd={handleAdd} />
+        </Route>
       </div>
     </Router>
   );

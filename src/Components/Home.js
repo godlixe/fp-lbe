@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import HomeCard from './HomeCard';
+import MiniCard from './MiniCard';
 
 const Home = (props) => {
 
@@ -26,19 +27,23 @@ const Home = (props) => {
         fetch('https://restcountries.com/v2/name/' + input.destName)
         .then(res => res.json())
         .then(data => setResList(data))
-    }, [input]);
+    }, [input])
 
-    function handleClick(){
-        
-    }
+    const [comList, setComList] = useState([]);
+
+    useEffect(() => {
+        fetch('https://restcountries.com/v2/all')
+        .then(res => res.json())
+        .then(data => setComList(data))
+    }, [])
 
     let empty = 1;
     let emptyStyle = "mx-auto my-auto text-center";
     let darn = "bg-red-900"
 
     return (
-        <div className="flex mx-auto bg-white max-w-2xl mt-10 min-h-xl border-2 border-gray-100 rounded-xl shadow-md">
-            <div className="white mx-auto">
+        <div className="flex mx-auto bg-white max-w-5xl mt-10 min-h-xl border-2 border-gray-100 rounded-xl shadow-md ">
+            <div className="white border-r-4">
                 <div className="flex px-10 py-5">
                     <div className="flex">
                         <label className="mx-2 mr-0 p-2 bg-green-300 rounded-l-md" htmlFor="i">
@@ -61,7 +66,17 @@ const Home = (props) => {
                 <div className="mx-12">
                     {input.destName === "" && <h1 className="pb-5 font-bold">Use the search bar to search for any country, and choose a date you would like to go at.</h1>}
                     {input.destName.length > 0 && resList.length > 0 && resList.map((index, key)=>{
-                        return <HomeCard name={index.name} flag={index.flags[0]}/>
+                        return <HomeCard name={index.name} flag={index.flags[0]} region={index.continent}/>
+                    })}
+                </div>
+            </div>
+            <div className="max-w-xl mx-auto py-3 px-6">
+                <div>
+                    <p>You can also choose from this list :</p>
+                </div>
+                <div className="">
+                    {comList.map((index, key) => {
+                        return <MiniCard name={index.name} />
                     })}
                 </div>
             </div>
