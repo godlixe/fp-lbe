@@ -11,13 +11,13 @@ function App() {
     destDate: ""
   });
 
-  function handleAdd(e, x){
+  function handleAdd(e, x) {
     console.log(e)
   }
   return (
     <Router>
-      <div>
-        <Navbar name={input.destName} date={input.destDate}/>
+      <div className="bg-blue-500">
+        <Navbar name={input.destName} date={input.destDate} />
         <Route path="/">
           <Home onAdd={handleAdd} />
         </Route>
