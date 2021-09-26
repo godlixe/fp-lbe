@@ -21,10 +21,12 @@ function App() {
   })
   }
   return (
-    <div>
-      <Navbar name={input.destName} date={input.destDate}/>
-      <Home onAdd={handleAdd}/>
-    </div>
+    <Router>
+      <div>
+        <Navbar name={input.destName} date={input.destDate}/>
+        <Home onAdd={handleAdd}/>
+      </div>
+    </Router>
   );
 }
 

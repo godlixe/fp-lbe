@@ -37,8 +37,8 @@ const Home = (props) => {
     let darn = "bg-red-900"
 
     return (
-        <div className="flex mx-auto bg-white max-w-5xl mt-10 min-h-96 border-2 border-gray-100 rounded-xl shadow-md">
-            <div className="white">
+        <div className="flex mx-auto bg-white max-w-2xl mt-10 min-h-xl border-2 border-gray-100 rounded-xl shadow-md">
+            <div className="white mx-auto">
                 <div className="flex px-10 py-5">
                     <div className="flex">
                         <label className="mx-2 mr-0 p-2 bg-green-300 rounded-l-md" htmlFor="i">
@@ -59,14 +59,11 @@ const Home = (props) => {
                     </div>
                 </div>
                 <div className="mx-12">
-                    {input.destName === "" && <p>hi</p>}
+                    {input.destName === "" && <h1 className="pb-5 font-bold">Use the search bar to search for any country, and choose a date you would like to go at.</h1>}
                     {input.destName.length > 0 && resList.length > 0 && resList.map((index, key)=>{
                         return <HomeCard name={index.name} flag={index.flags[0]}/>
                     })}
                 </div>
-            </div>
-            <div className={empty? emptyStyle : darn}>
-                <p>There's nothing to see here, yet...</p>
             </div>
         </div>
     )
